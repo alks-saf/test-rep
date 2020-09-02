@@ -14,7 +14,7 @@ const personalMovieBD = {
     movie:{},
     actors:{},
     genres:[],
-    privat:false,
+    privat:true,
     start: function () {
         let numberOfFilms;
         numberOfFilms = +prompt('Сколько фильмов уже посмотрели?', '');
@@ -27,10 +27,15 @@ const personalMovieBD = {
         for (let i = 0; i < 3; i++) {
             let p = i+1;
             personalMovieBD.genres[i] = prompt('Ваш люимый жанр №' + p +" ?", '');
+            if (personalMovieBD.genres[i] == '' || personalMovieBD.genres[i] == null) {
+                i--;  
+            }
+
         }
+        personalMovieBD.genres.forEach(function(val,i) {console.log(`Любимый жанр № ${i+1} это ${val}`)});
     },
     rememberMyFilms: function() {
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
             const a = prompt("Какой филь смотрели в последнее время?",''),
                   b = +prompt("Насколько его оцените?",'');
             if (a != null && b != null && a != ' ' && b !=' ' && a.length < 50) {
@@ -60,6 +65,9 @@ const personalMovieBD = {
             console.log(personalMovieBD);
     
         }
+    },
+    toggleVisibleMyDB: function () {
+        personalMovieBD.privat = personalMovieBD.privat ? false : true;
     }
 };
 
@@ -67,6 +75,7 @@ personalMovieBD.start();
 personalMovieBD.rememberMyFilms();
 personalMovieBD.writeYourGenres();
 personalMovieBD.detectPersonalLevel();
+personalMovieBD.toggleVisibleMyDB();
 personalMovieBD.showMyDB();
 
 
